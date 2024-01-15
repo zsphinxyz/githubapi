@@ -1,0 +1,61 @@
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import {Table, TableBody, TableHeader, TableCell, TableRow, TableHead, TableCaption} from "@/components/ui/table"
+import Image from "next/image";
+
+export default function UserData({data, repos}:any) {
+
+    return(
+        <>
+        <Card className="w-11/12 mx-auto">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-3 mb-3">
+            {
+            data.length != 0 ? 
+              <Image src={data.avatar_url} alt={data.name} width={70} height={70} className="inline" />
+            :
+              <div className="w-[70px] h-[70px] bg-border animate-pulse"></div>
+          }
+            <div className="flex flex-col gap-1">
+              <p>{data.name} <span className="inline text-muted-foreground">(@{data.login})</span></p>
+              <p className="opacity-50 text-sm">#{data.id} • {data.type} </p>
+              <p className="text-muted-foreground text-sm">{data.bio} </p>
+            </div>
+          </CardTitle>
+
+          <CardDescription>
+            {data.followers} followers • {data.following} following • {data.public_repos} repos
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent>
+          <Table>
+            <TableCaption>Since {data.created_at && data.created_at.split('-')[0]} {data.location && ' • From '+data.location} {data.blog && <a href={data.blog} target="_blank">• {data.blog}</a> } </TableCaption>
+            <TableHeader>
+              <TableRow>
+                  <TableHead>ID</TableHead>
+                  <TableHead>Repo Name</TableHead>
+                  <TableHead>URL</TableHead>
+                  <TableHead>Language</TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                {
+                  repos.length != 0 ? repos.map( (repo:any) => (
+                    <TableRow key={repo.id}>
+                      <TableCell>{repo.id}</TableCell>
+                      <TableCell >{repo.name}</TableCell>
+                      <TableCell >{repo.html_url}</TableCell>
+                      <TableCell >{repo.language}</TableCell>
+                  </TableRow>
+                  )) : <TableRow><TableCell className="text-rose-500">No Data to Show❗</TableCell></TableRow>
+                }
+            </TableBody>
+          </Table>
+        </CardContent>
+
+        <CardFooter>Github Api Data</CardFooter>
+      </Card>
+      </>
+    )
+}
