@@ -25,6 +25,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
               {children}
+              <footer className='my-5 text-center text-foreground'>&copy; 2024 by <a href='https://linktr.ee/zsphinx' target='_blank' className='text-blue-500 underline'>zsphinx</a></footer>
           </ThemeProvider>
         </body>
     </html>

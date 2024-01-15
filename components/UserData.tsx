@@ -23,7 +23,7 @@ export default function UserData({data, repos}:any) {
           </CardTitle>
 
           <CardDescription>
-            {data.followers} followers • {data.following} following • {data.public_repos} repos
+            {data.followers} followers • {data.following} following • {data.public_repos} public repos
           </CardDescription>
         </CardHeader>
 
@@ -34,7 +34,8 @@ export default function UserData({data, repos}:any) {
               <TableRow>
                   <TableHead>ID</TableHead>
                   <TableHead>Repo Name</TableHead>
-                  <TableHead>URL</TableHead>
+                  <TableHead>Repo URL & Description</TableHead>
+                  <TableHead>Stars</TableHead>
                   <TableHead>Language</TableHead>
               </TableRow>
             </TableHeader>
@@ -45,7 +46,8 @@ export default function UserData({data, repos}:any) {
                     <TableRow key={repo.id}>
                       <TableCell>{repo.id}</TableCell>
                       <TableCell >{repo.name}</TableCell>
-                      <TableCell >{repo.html_url}</TableCell>
+                      <TableCell >{<a href={repo.html_url} target="_blank">{repo.html_url}</a>} <br /> <span className="text-muted-foreground">{repo.description}</span></TableCell>
+                      <TableCell >{repo.stargazers_count}⭐</TableCell>
                       <TableCell >{repo.language}</TableCell>
                   </TableRow>
                   )) : <TableRow><TableCell className="text-rose-500">No Data to Show❗</TableCell></TableRow>
