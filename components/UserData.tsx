@@ -29,7 +29,7 @@ export default function UserData({data, repos}:any) {
 
         <CardContent>
           <Table>
-            <TableCaption>Since {data.created_at && data.created_at.split('-')[0]} {data.location && ' • From '+data.location} {data.blog && <a href={data.blog} target="_blank">• {data.blog}</a> } </TableCaption>
+            <TableCaption>Since {data.created_at && data.created_at.split('-')[0]} {data.location && ' • From '+data.location} • {data.blog && <a href={data.blog} target="_blank" className="underline">{data.blog}</a> } </TableCaption>
             <TableHeader>
               <TableRow>
                   <TableHead>ID</TableHead>
