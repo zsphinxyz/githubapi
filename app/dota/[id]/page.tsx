@@ -7,8 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Suspense } from "react"
-import { NextRequest, NextResponse } from "next/server"
 import { redirect } from "next/navigation"
 
 function SetAttribute(value: String) {
@@ -26,6 +24,12 @@ function SetAttribute(value: String) {
   }
 }
 
+async function getStratzData() {
+  const stratzAPI = await fetch('https://docs.stratz.com/api/v1/hero')
+  const stratzData = await stratzAPI.json()
+  return stratzData
+}
+
 
 async function Page({params}: {params: {id: string}}) {
     const res = await fetch('https://api.opendota.com/api/heroStats');
@@ -33,6 +37,9 @@ async function Page({params}: {params: {id: string}}) {
     const id = params.id;
     const hero = await data[id];
     const attribute = await hero.primary_attr;
+
+    const stratzData = await getStratzData();
+    const stratzDataArray:any = Object.values(stratzData)
 
     async function NextAction() {
       'use server'
@@ -65,11 +72,22 @@ async function Page({params}: {params: {id: string}}) {
                 <span key={i} className="bg-muted text-xs mx-1 py-1 px-2 rounded-full select-none cursor-default">{i}</span>
               ))
             }
+            {
+              <span className="text-muted-foreground mt-3 block"
+                dangerouslySetInnerHTML={{__html: stratzDataArray[parseInt(id)+1].language.hype }}
+              />
+            }
+
           </CardDescription>
         </CardHeader>
 
         <CardContent>
-          <div className="">
+
+          <div className="ring-muted ring-1 rounded-md p-3">
+              <h1 className="text-lg font-bold ">Bio</h1>
+              <p className="text-foreground/80 text-sm text-pretty"
+                dangerouslySetInnerHTML={{__html:stratzDataArray[parseInt(id)+1].language.bio}}
+              />
 
           </div>
         </CardContent>
