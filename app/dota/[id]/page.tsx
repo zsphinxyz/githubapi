@@ -117,30 +117,31 @@ async function Page({params}: {params: {id: string}}) {
         </CardHeader>
 
         <CardContent>
+          
+            <div className="ring-muted ring-1 rounded-md p-3">
+              <div className="text-foreground/80 text-sm text-pretty">
+                <h1 className="font-bold text-xl mb-1">Bio</h1>
+                {
+                  TagToString(stratzDataArray[stratzId].language.bio)
+                }
+              </div>
+            </div>
 
-          <div className="ring-muted ring-1 rounded-md p-3">
-            <p className="text-foreground/80 text-sm text-pretty">
-              <h1 className="font-bold text-xl mb-1">Bio</h1>
+            <div className="p-3 ring-1 ring-muted my-3 rounded-lg">
+              <h1 className="font-bold text-xl mb-1">Abilities</h1>
               {
-                TagToString(stratzDataArray[stratzId].language.bio)
-              }
-            </p>
-          </div>
-
-          <div className="p-5 ring-1 ring-muted my-3 rounded-lg">
-            <h1 className="font-bold text-xl mb-1">Abilities</h1>
-              {
-                newAbilityArray.map( (data:string, i:number) => (
+                newAbilityArray.map((data: string, i: number) => (
                   <div key={i} className="pl-2">
                     <h1 className="font-medium mb-1">{data}</h1>
-                    <p className="text-sm text-muted-foreground pl-2 mb-5 relative">
-                      {abilityDesc[i]}
-                      <span className="w-[2px] h-full absolute inset-0 bg-muted-foreground/20" />
+                    <p className=" pl-2 mb-5 relative">
+                      <span className="text-sm text-muted-foreground">{abilityDesc[i]}</span>
+                      <span className="w-[2px] h-full absolute inset-0 bg-muted-foreground/20"></span>
                     </p>
                   </div>
                 ))
               }
-          </div>
+            </div>
+
         </CardContent>
 
         <CardFooter className="flex justify-between">

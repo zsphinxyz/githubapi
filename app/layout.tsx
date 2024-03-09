@@ -7,8 +7,8 @@ import Link from 'next/link'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Github API',
-  description: 'GITHUB API GUI Created by Zsphinx',
+  title: 'zapiz',
+  description: 'Projects using APIs Created by Zsphinx',
 }
 
 export default function RootLayout({
@@ -26,12 +26,8 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <div className="">
-              <header className='p-3 bg-muted'>
-                <Link href='/' className='text-xl font-bold'>Home</Link>
-              </header>
                 {children}
             </div>
-              <footer className='my-5 text-center text-foreground'>&copy; 2024 by <a href='https://linktr.ee/zsphinx' target='_blank' className='text-blue-500 underline'>zsphinx</a></footer>
           </ThemeProvider>
         </body>
     </html>
