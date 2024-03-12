@@ -1,7 +1,7 @@
 'use client'
 import { ModeToggle } from "@/components/Mode";
 import UserData from "@/components/UserData";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -14,24 +14,34 @@ export default function Home() {
   const [search, setSearch] = useState('github')  // user input
 
   async function getAll() {
-    const getGithubData = async (user:string) => {
-      const res = await fetch(`https://api.github.com/users/${user}`)
-      if (!res.ok) {
-       console.log('no user found')
+    const getGithubData = async (user: string) => {
+      try {
+        let res = await fetch(`https://api.github.com/users/${user}`)
+        if (!res.ok) {
+          return ({})
+        }
+        return (
+          res.json()
+        )
+      } catch (error) {
+        console.log(error)
       }
-      return (
-        res.json()
-      )
+
     }
-    
-    const getGithubRepo = async (user:string) => {
-      const res = await fetch(`https://api.github.com/users/${user}/repos`)
-      if (!res.ok) {
-       console.log('no user found')
+
+    const getGithubRepo = async (user: string) => {
+      try {
+        const res = await fetch(`https://api.githb.com/users/${user}/repos`)
+        if (!res.ok) {
+          return ({})
+        }
+        return (
+          res.json()
+        )
+      } catch (error) {
+        console.log(error)
       }
-      return (
-        res.json()
-      )
+
     }  
     
     const apiData = await getGithubData(search);

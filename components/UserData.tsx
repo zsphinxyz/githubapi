@@ -42,7 +42,7 @@ export default function UserData({data, repos}:any) {
 
             <TableBody>
                 {
-                  repos.length != 0 ? repos.map( (repo:any) => (
+                  repos ? repos.map( (repo:any) => (
                     <TableRow key={repo.id}>
                       <TableCell>{repo.id}</TableCell>
                       <TableCell >{repo.name}</TableCell>
