@@ -9,6 +9,18 @@ const nextConfig = {
             {
                 protocol: 'https',
                 hostname: 'cdn.dota2.com'
+            },
+            {
+                protocol: 'https',
+                hostname: 'flagcdn.com'
+            },
+            {
+                protocol: 'https',
+                hostname: 'upload.wikimedia.org'
+            },
+            {
+                protocol: 'https',
+                hostname: 'mainfacts.com'
             }
         ]
     }
