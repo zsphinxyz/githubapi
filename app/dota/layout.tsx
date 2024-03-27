@@ -26,8 +26,8 @@ export default function RootLayout({
         
             {children}
 
-        <footer className='my-5 text-center text-foreground space-x-10'>
-            <span className="">&copy; 2024 by 
+        <footer className='my-5 text-center text-sm text-foreground space-x-10'>
+            <span className="">&copy; 2024 by {' '}
                 <a href='https://linktr.ee/zsphinx' target='_blank' className='text-blue-500 underline'>zsphinx</a>
             </span>
             <span className="space-x-2">

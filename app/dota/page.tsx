@@ -13,7 +13,6 @@ async function Dota() {
             <section className="p-3 ">
                 <HeroTable data={data} />
             </section>
-
         </main>
     )
 }
