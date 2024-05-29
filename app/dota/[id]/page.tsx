@@ -57,8 +57,8 @@ async function Page({ params }: { params: { id: string } }) {
     let currentAbilityIndex: string = abilityArray[i].abilityId
     let abilityInfo = abilityData[currentAbilityIndex].language
 
-    newAbilityArray.push(abilityInfo.displayName)
-    abilityDesc.push(abilityInfo.description[0])
+    abilityInfo && newAbilityArray.push(abilityInfo.displayName)
+    abilityInfo && abilityDesc.push(abilityInfo.description[0])
   }
 
 
