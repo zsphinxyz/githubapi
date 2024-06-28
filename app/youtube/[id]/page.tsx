@@ -12,8 +12,6 @@ export default async function page({params}: {params: {id:string}}) {
   }
 
   const video = await getVideo(params.id)
-  console.log(video)
-
     
   return (
     <div className="flex p-10 justify-center w-full h-dvh">
