@@ -7,21 +7,22 @@ import { redirect } from "next/navigation"
 import { Suspense } from "react"
 import { BiComment, BiEnvelope } from "react-icons/bi"
 import { TbThumbUp } from "react-icons/tb"
+import Trending from "./trending"
 
 
-export default async function page({searchParams}: {searchParams: {q:string}}) {
+export default async function page({searchParams}: {searchParams: {q:string, result:number}}) {
   const API_ENDPOINT = 'https://youtube.googleapis.com/youtube/v3'
   const key = process.env.YOUTUBE_API_KEY
-  const maxResults = 12
+  let maxResults = searchParams.result || 12
 
 
   async function getVideos(q:string) {
-      const URL = `${API_ENDPOINT}/search?part=snippet&maxResults=${maxResults}&q=${q}&type=video&key=${key}`
-      // console.log(URL)
-      const res = await fetch(URL)
-      const data = await res.json()
-      const items = data.items
-      return items
+    const URL = `${API_ENDPOINT}/search?part=snippet&maxResults=${maxResults}&q=${q}&type=video&key=${key}`
+    // console.log(URL)
+    const res = await fetch(URL)
+    const data = await res.json()
+    const items = data.items
+    return items
   }
 
   let items = await getVideos(searchParams.q)
@@ -33,25 +34,33 @@ export default async function page({searchParams}: {searchParams: {q:string}}) {
     redirect(`?q=${q}`)
   }
 
+  function loadMore() {
+    maxResults += 6
+  }
+
+
   return (
-    <section className="bg-neutral-900 p-5">
+    <section className="bg-green-200/20 p-5 min-h-[calc(100vh-56px)]">
+
       <form action={handleSearch} className="w-1/2 mx-auto border mb-3 outline-none border-none">
-        <input type="search" name="q" id='q' defaultValue={searchParams.q} placeholder="Search..." className="w-full py-2 px-5 border border-muted focus:border-muted-foreground outline-none rounded-full" />
-        {searchParams.q && <p className="text-white/50 ml-5 my-1">Results for <span className="text-white/80">{searchParams.q}</span></p>}
+        <input type="search" name="q" id='q' defaultValue={searchParams.q} placeholder="Search..." className="w-full py-2 px-5 border border-muted bg-white/20 focus:border-muted-foreground outline-none rounded-full" />
+        {searchParams.q ? 
+          <p className="text-white/50 ml-5 my-1">Results for <span className="text-white/80">{searchParams.q}</span></p>
+        :
+          <p className="mt-5 font-medium text-xl text-center ">Trending</p>
+      }
       </form>
 
       <div className="flex flex-wrap justify-center gap-5 max-w-[1680px] mx-auto">
         {
-          items ? items.map( async (item: any) => {
+          !searchParams.q ? <Trending API_ENDPOINT={API_ENDPOINT} apiKey={key!} maxResults={maxResults}  />
+          :
+          items.map( async (item: any) => {
 
-            const channelRes = await fetch(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${item.snippet.channelId}&key=${key}`, {method: 'GET', })
+            const channelRes = await fetch(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${item.snippet.channelId}&key=${key}`, {method: 'GET', })
             const cData = await channelRes.json()
-
-            const videoRes = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=statistics&id=${item.id.videoId}&key=${key}`)
-            const vData = await videoRes.json()
-
             return (
-                <Link href={`youtube/${vData.items[0].id}`} key={item.id.videoId} className={`min-w-full sm:min-w-[360px] bg-gradient-to-b from-black/0 via-black/10 to-white/5 hover:to-teal-300/20 p-1 sm:rounded-2xl shadow-sm shadow-red-500 hover:shadow-md hover:shadow-green-300/50 `} style={{ width: item.snippet.thumbnails.medium.width }} >
+                <Link href={`youtube/${item.id.videoId}`} key={item.id.videoId} className={`min-w-full sm:min-w-[360px] bg-gradient-to-b from-black/0 via-black/10 to-white/5 hover:to-teal-300/20 p-1 sm:rounded-2xl shadow-sm shadow-red-500 hover:shadow-md hover:shadow-green-300/50 transition-all`} style={{ width: item.snippet.thumbnails.medium.width }} >
                   <Suspense fallback={'🔘'}>
                     <Image  className="border border-white/30 sm:rounded-2xl mx-auto transition-all duration-300 delay-150 aspect-video object-cover" 
                             src={item.snippet.thumbnails.high.url} 
@@ -78,23 +87,21 @@ export default async function page({searchParams}: {searchParams: {q:string}}) {
                         <p className="inline-block text-xs text-right w-fit ">{timeAgo(new Date(item.snippet.publishedAt))}</p>
                       </div>
                       <p className="text-xs flex gap-1 items-center text-white/50 justify-start mt-1">
-                        <EyeOpenIcon className="inline text-white/40" /> {parseInt(vData.items[0].statistics.viewCount).toLocaleString()} <span className="text-white/30">●</span>
-                        <TbThumbUp className="inline text-white/40" /> {parseInt(vData.items[0].statistics.likeCount).toLocaleString()} <span className="text-white/30">●</span>
-                        <BiComment className="inline text-white/40" /> {parseInt(vData.items[0].statistics.commentCount).toLocaleString()}
+                        <span><EyeOpenIcon className="inline text-white/40" /> {parseInt(cData.items[0].statistics.viewCount).toLocaleString()} <span className="text-white/30">●</span></span>
+                        <span><TbThumbUp className="inline text-white/40" /> {parseInt(cData.items[0].statistics.likeCount).toLocaleString()} <span className="text-white/30">●</span></span>
+                        {cData.items[0].statistics.commentCount && <span><BiComment className="inline text-white/40" /> {parseInt(cData.items[0].statistics.commentCount).toLocaleString()}</span>}
                       </p>
                     </div>
                   </div>
                 </Link>
             )
           })
-          :
-          <p className="text-red-400 bg-red-400/50 text-xl p-1 w-full mx-auto text-center">Error
-            <span className="">
-              you exceed the limit or you are offline
-            </span>
-          </p>
+          
         }
-      </div>
+        </div>
+      
+      {/* <Link href={`?q=${searchParams.q}&result=5`}>Load More</Link> */}
+      
     </section>
   )
 }
