@@ -1,8 +1,8 @@
 import { timeAgo } from "@/lib/utils"
 import { EyeOpenIcon } from "@radix-ui/react-icons"
-import Link from "next/link"
 import { BiComment } from "react-icons/bi"
 import { TbThumbUp } from "react-icons/tb"
+// import {YouTubeEmbed} from '@next/third-parties/google'
 
 export default async function page({params}: {params: {id:string}}) {
   const API_ENDPOINT = 'https://youtube.googleapis.com/youtube/v3'
@@ -46,6 +46,8 @@ export default async function page({params}: {params: {id:string}}) {
             ))
           }
         </p>
+
+        {/* <YouTubeEmbed videoid={params.id} height={50} playlabel="Youtube embed" width={80}  /> */}
     </section>
   )
 }

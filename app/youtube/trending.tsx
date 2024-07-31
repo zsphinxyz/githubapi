@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Suspense } from "react"
 import { BiComment } from "react-icons/bi"
 import { TbThumbUp } from "react-icons/tb"
+import {YouTubeEmbed} from '@next/third-parties/google'
 
 export default async function Trending({ API_ENDPOINT, maxResults, apiKey }: { API_ENDPOINT: string, maxResults: number, apiKey: string }) {
   const URL = `${API_ENDPOINT}/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=US&maxResults=${maxResults}&key=${apiKey}`
@@ -55,6 +56,8 @@ export default async function Trending({ API_ENDPOINT, maxResults, apiKey }: { A
                 </div>
               </div>
             </Link>
+
+            
           )
         })
       }

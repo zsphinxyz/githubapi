@@ -13,13 +13,13 @@ import Trending from "./trending"
 export default async function page({searchParams}: {searchParams: {q:string, result:number}}) {
   const API_ENDPOINT = 'https://youtube.googleapis.com/youtube/v3'
   const key = process.env.YOUTUBE_API_KEY
-  let maxResults = searchParams.result || 12
+  let maxResults = searchParams.result || 3
 
 
   async function getVideos(q:string) {
     const URL = `${API_ENDPOINT}/search?part=snippet&maxResults=${maxResults}&q=${q}&type=video&key=${key}`
     // console.log(URL)
-    const res = await fetch(URL)
+    const res = await fetch(URL, {cache: "no-cache"})
     const data = await res.json()
     const items = data.items
     return items
@@ -34,8 +34,10 @@ export default async function page({searchParams}: {searchParams: {q:string, res
     redirect(`?q=${q}`)
   }
 
-  function loadMore() {
-    maxResults += 6
+  async function loadMore() {
+    'use server'
+    searchParams.result = 6
+    redirect(`?result=`+ searchParams.result)
   }
 
 
@@ -101,6 +103,9 @@ export default async function page({searchParams}: {searchParams: {q:string, res
         </div>
       
       {/* <Link href={`?q=${searchParams.q}&result=5`}>Load More</Link> */}
+      <form action={loadMore}>
+        <button type="submit">Load More...</button>
+      </form>
       
     </section>
   )
