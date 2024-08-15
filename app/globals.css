@@ -73,4 +73,19 @@
   body {
     @apply bg-background text-foreground;
   }
+  .header {
+    @apply text-center text-2xl font-bold mb-2;
+  }
+  .sub {
+    @apply text-xl font-medium mb-2;
+  }
+  .code{
+    @apply bg-green-500/50 font-mono py-1 px-2 select-all;
+  }
+  .desc{
+    @apply bg-white/10 py-2 pl-4;
+  }
+  .sp {
+    @apply font-mono bg-white/10 ml-2 md:ml-5 px-1 rounded-sm text-white/80 text-sm;
+  }
 }

@@ -7,6 +7,7 @@ function Home() {
       <Link className="hover:text-blue-400 hover:bg-white/10 w-full border border-muted py-2 px-10 block rounded-lg text-center transition-colors" href='/countries'>Countries</Link>
       <Link className="hover:text-blue-400 hover:bg-white/10 w-full border border-muted py-2 px-10 block rounded-lg text-center transition-colors" href='/github'>Github</Link>
       <Link className="hover:text-blue-400 hover:bg-white/10 w-full border border-muted py-2 px-10 block rounded-lg text-center transition-colors" href='/youtube'>Youtube</Link>
+      <Link className="hover:text-blue-400 hover:bg-white/10 w-full border border-muted py-2 px-10 block rounded-lg text-center transition-colors" href='/data'>Random Data API</Link>
     </main>
   )
 }
