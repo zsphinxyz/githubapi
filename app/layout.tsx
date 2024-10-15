@@ -20,8 +20,8 @@ export default function RootLayout({
         <body className={`${inter.className} flex flex-col min-h-screen justify-between`}>
           <ThemeProvider
             attribute='class'
-            defaultTheme='system'
-            enableSystem
+            defaultTheme='dark'
+            enableSystem={true}
             disableTransitionOnChange
           >
             <div className="">
