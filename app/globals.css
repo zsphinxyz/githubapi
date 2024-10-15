@@ -64,14 +64,7 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
-}
 
-body {
-  background-color: var(--background);
-  color: var(--foreground)
-}
- 
-@layer base {
   * {
     @apply border-border;
   }
@@ -94,3 +87,17 @@ body {
     @apply font-mono bg-white/10 ml-2 md:ml-5 px-1 rounded-sm text-white/80 text-sm;
   }
 }
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+

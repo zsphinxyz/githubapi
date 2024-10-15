@@ -36,7 +36,7 @@ export default function page() {
         <div className="my-10">
           <h2 className="sub">Admin Data <span className="sp">/data?id=admin&key=[key]</span></h2>
           <p className="code">https://zapiz.vercel.app/api/data?id=admin&key=[yourKeyHere]</p>
-          <p className="desc"> Respond the data of admin. Need key to call this request.</p>
+          <p className="desc">Respond the data of admin. Need key to get the respond.</p>
         </div>
 
         <hr />
