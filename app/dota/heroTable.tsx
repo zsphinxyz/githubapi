@@ -49,7 +49,7 @@ export default function HeroTable({data}:any) {
 
     return (
         <div>
-            <div className="flex gap-2 flex-wrap relative">
+            <div className="flex gap-2 flex-wrap relative items-center justify-center">
                 {
                     data.map((data: any, i: number) => {
                         let name = data.localized_name as string
@@ -58,7 +58,7 @@ export default function HeroTable({data}:any) {
 
                         return(
                         <Link key={i} href={`/dota/${i}`} className="" >
-                            <Suspense fallback={<div>...</div>}>
+                            <Suspense fallback={<div className="w-[100px] h-[55px] bg-neutral-600 animate-ping">...</div>}>
                                 <div 
                                     className="basis-32 flex flex-col items-center justify-center self-center cursor-default border border-muted hover:border-muted-foreground transition"
                                 >

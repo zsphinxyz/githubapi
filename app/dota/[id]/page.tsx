@@ -26,9 +26,13 @@ function SetAttribute(value: String) {
 }
 
 async function getStratzData() {
-  const stratzAPI = await fetch('https://docs.stratz.com/api/v1/hero')
-  const stratzData = await stratzAPI.json()
-  return stratzData
+  try {
+    const stratzAPI = await fetch('https://docs.stratz.com/api/v1/hero')
+    const stratzData = await stratzAPI.json()
+    return stratzData
+  } catch (error) {
+    redirect('/dota')
+  }
 }
 
 function TagToString(str: string) {
@@ -44,7 +48,7 @@ async function Page({ params }: { params: { id: string } }) {
   const attribute = await hero.primary_attr;
 
   const stratzData = await getStratzData();
-  const stratzId = parseInt(id) < 118 ? parseInt(id) + 1 : parseInt(id) + 2 // cause 118 is dummy api so I skipped it
+  const stratzId = parseInt(id) < 118 ? parseInt(id) + 1 : parseInt(id) + 2 // cause 118 is dummy api so skipped it
   const stratzDataArray: any = Object.values(stratzData)
 
   const abilityArray = stratzDataArray[stratzId].abilities;

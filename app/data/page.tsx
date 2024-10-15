@@ -1,7 +1,7 @@
 export default function page() {
   return (
     <main className="bg-slate-900 w-full text-slate-200 min-h-dvh py-5">
-      <section className="max-w-screen-lg mx-auto px-2">
+      <section className="space-y-10 max-w-screen-lg mx-auto px-2">
 
         <div className="">
           <h1 className="header">Random Data API</h1>

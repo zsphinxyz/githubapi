@@ -7,6 +7,8 @@ export async function GET(req: NextRequest) {
   const key = searchParams.get('key');
   const reqHeaders = req.headers
 
+  console.log(reqHeaders)
+
   const admin = {
     "email": "z@mail.com",
     "ip_address": "235.202.41.52",

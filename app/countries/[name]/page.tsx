@@ -85,10 +85,10 @@ async function CountryPage({params}: {params: {name: string}}) {
                           <Image src={countryData.coatOfArms.png} alt='' width={200} height={200} className="basis-1/2 size-auto p-5" />
                       </Suspense>
                       <div className="basis-1/2 bg-muted-foreground/10 p-5 space-y-3 text-foreground/80">
-                          <p><BsCashCoin className="inline-block text-yellow-500 mr-1" /> {currency.name} • {currency.symbol}</p>
-                          <p><MdGroups className="inline-block text-yellow-500 mr-1" />{countryData.population}</p>
-                          <p><BiPhone className="inline-block text-yellow-500 mr-1" />{phonePrefix}</p>
-                          <p><RiSpeakFill className="inline-block text-yellow-500 mr-1" />
+                          <p title='Currency & Symbol'><BsCashCoin className="inline-block text-yellow-500 mr-1" /> {currency.name} • {currency.symbol}</p>
+                          <p title="Population"><MdGroups className="inline-block text-yellow-500 mr-1" />{countryData.population.toLocaleString()}</p>
+                          <p title="Phone Pre-Fix"><BiPhone className="inline-block text-yellow-500 mr-1" />{phonePrefix}</p>
+                          <p title='Spoken Languages'><RiSpeakFill className="inline-block text-yellow-500 mr-1" />
                               {
                                   languages.map((i: any) => (<span key={i}>{i}, </span>))
                               }
