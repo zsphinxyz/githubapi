@@ -33,7 +33,15 @@ const nextConfig = {
             {
                 protocol: 'https',
                 hostname: 'yt3.ggpht.com'
-            }
+            },
+            {
+                protocol: 'https',
+                hostname: 'cdn.akamai.steamstatic.com'
+            },
+            {
+                protocol: 'https',
+                hostname: 'cdn.dota2.comundefined'
+            },
         ]
     }
 }
