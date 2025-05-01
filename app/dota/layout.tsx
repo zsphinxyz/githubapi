@@ -4,6 +4,7 @@ import '../globals.css'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import Loading from './loading'
+import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,12 +22,14 @@ export default function RootLayout({
     <div className="">
 
         <header className='p-3 bg-muted'>
-            <Link href='/dota' className='text-xl font-bold'>Dota 2</Link>
+            <Link href='/dota' className='text-xl font-bold'>
+              <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/dota_footer_logo.png" alt="dota2_logo" width={100} height={100} className='w-auto h-auto' />
+            </Link>
         </header>
         
             {children}
 
-        <footer className='my-5 text-center text-sm text-foreground space-x-10'>
+        {/* <footer className='my-5 text-center text-sm text-foreground space-x-10'>
             <span className="">&copy; 2024 by {' '}
                 <a href='https://linktr.ee/zsphinx' target='_blank' className='text-blue-500 underline'>zsphinx</a>
             </span>
@@ -35,7 +38,7 @@ export default function RootLayout({
                 <a href="https://docs.opendota.com/" target="_blank" rel="noopener noreferrer" className='text-blue-500 underline'>Open Dota API</a>,
                 <a href="https://docs.stratz.com/index.html" target="_blank" rel="noopener noreferrer" className='text-blue-500 underline'>Stratz API</a>
             </span>
-        </footer>
+        </footer> */}
     </div>
 
   )

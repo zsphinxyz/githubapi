@@ -8,7 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { redirect } from "next/navigation"
-import { Suspense, useState } from "react"
+import { Suspense } from "react"
+import Ablilities from "../abilities"
 
 
 async function Page({ params }: { params: { id: string } }) {
@@ -19,10 +20,13 @@ async function Page({ params }: { params: { id: string } }) {
   const res = await fetch(`https://www.dota2.com/datafeed/herodata?language=english&hero_id=${id}`)
   const data = (await res.json()).result.data.heroes[0];
   const attrLink = "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/hero_"
-  const primary_attr = data.primary_attr == 0 ? attrLink + "strength.png" 
-                                            : data.primary_attr == 1 ? attrLink + "agility.png" 
-                                            : data.primary_attr == 2 ? attrLink + "intelligence.png" 
-                                            : attrLink + "universal.png"
+  const primary_attr = data.primary_attr == 0 ? attrLink + "strength.png"
+    : data.primary_attr == 1 ? attrLink + "agility.png"
+      : data.primary_attr == 2 ? attrLink + "intelligence.png"
+        : attrLink + "universal.png"
+
+  const attack_capability_link = "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/"
+  const hero_attack = data.attack_capability == 1 ? attack_capability_link + "melee.svg" : attack_capability_link + "ranged.svg"  
 
   // console.log(data)
   // const skills = await data.abilities
@@ -48,19 +52,27 @@ async function Page({ params }: { params: { id: string } }) {
         <CardHeader>
           <Suspense fallback={'...'}>
             <CardTitle className="">
-             <p className="text-3xl font-bold">
-              {data.name_loc}
-              <Image src={primary_attr} alt="attributes" width={22} height={22} className="inline ml-1" />
+              <p className="text-3xl font-bold">
+                {data.name_loc}
+                <Image src={primary_attr} alt="attributes" width={22} height={22} className="inline ml-1" />
+                <Image src={hero_attack} alt="type" width={22} height={22} className="inline ml-1" />
               </p>
-             <p className="font-normal pt-1 opacity-70 text-sm">{data.npe_desc_loc}</p>
-             <p className="font-normal pt-1 opacity-70 text-sm border-y-2 border-muted py-3 my-2" 
-                dangerouslySetInnerHTML={{ __html: data.hype_loc }}></p>
+              <p className="font-normal pt-1 opacity-70 text-sm">{data.npe_desc_loc}</p>
+
             </CardTitle>
           </Suspense>
 
           <CardDescription>
+            <span className="font-normal block pt-1 text-muted-foreground text-sm border-y-2 border-muted py-3 my-2"
+              dangerouslySetInnerHTML={{ __html: data.hype_loc }}></span>
+          </CardDescription>
+        </CardHeader>
 
-            <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+        <CardContent>
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+
+            <div className="relative shrink-0 mb-auto">
               <video className="max-h-96 mx-auto"
                 loop autoPlay playsInline preload="auto" poster={`https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${data.name.slice(14)}.png`}>
                 <source type="video/webm" src={`https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${data.name.slice(14)}.webm`} />
@@ -68,33 +80,47 @@ async function Page({ params }: { params: { id: string } }) {
                 <img src={`https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${data.name.slice(14)}.png`} />
               </video>
 
-              <div className="w-full flex gap-2 flex-wrap items-center justify-center ">
-                {
-                   data.abilities.filter((skill: any) => !skill.ability_is_granted_by_shard && !skill.ability_is_granted_by_septer && !skill.ability_is_innate)
-                   .map((skill: any, i: number) => {
-                    return (
-                      <div key={i} className="flex flex-col flex-wrap items-center justify-center gap-2 max-w-24">
-                        <Image src={`https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/abilities/${skill.name}.png`} alt={skill.name} width={90} height={90} className=" select-none" />
-                        <p className="text-xs text-muted-foreground py-1">{skill.name_loc}</p>
-                      </div>
-                    )
-                  })
-                } 
-                {/* <p className="">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias nam alias nesciunt ex similique sunt nobis odio, soluta, exercitationem dolor eaque rerum qui sit a debitis ad eligendi beatae consequatur!
-                </p> */}
+              <div className="absolute top-0 left-0">
+
+                <p className="flex items-center gap-1 text-sm">
+                  <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png" alt="str" width={20} height={20} />
+                  <span className=""> {data.str_base} </span>
+                  <span className="text-muted-foreground text-xs"> +{data.str_gain}</span>
+                </p>
+
+                <p className="flex items-center gap-1 my-2 text-sm">
+                  <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png" alt="str" width={20} height={20} />
+                  <span className=""> {data.agi_base} </span>
+                  <span className="text-muted-foreground text-xs"> +{data.agi_gain}</span>
+                </p>
+
+                <p className="flex items-center gap-1 text-sm">
+                  <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png" alt="str" width={20} height={20} />
+                  <span className=""> {data.int_base} </span>
+                  <span className="text-muted-foreground text-xs"> +{data.int_gain}</span>
+                </p>
+
+                <p className="text-xs w-20 text-center mb-0.5 bg-green-600 mt-2">
+                  <span className="font-bold">{data.max_health}</span> 
+                  <span className="text-[10px]"> +{parseFloat(data.health_regen).toFixed(2)}</span>
+                </p>
+                <p className="text-xs w-20 text-center bg-blue-500"> 
+                  <span className="font-bold">{data.max_mana}</span>  
+                  <span className="text-[10px]"> +{parseFloat(data.mana_regen).toFixed(2)}</span>
+                </p>
+
               </div>
             </div>
 
-          </CardDescription>
-        </CardHeader>
+           <Ablilities data={data} />
+          </div>
 
-        <CardContent>
+
           <Suspense fallback={'...'}>
             <div className="ring-muted ring-1 rounded-md p-3 text-sm">
               <p className="underline font-bold text-lg text-muted-foreground">Bio</p>
-              <p className="font-normal pt-1 opacity-70 text-sm" 
-                 dangerouslySetInnerHTML={{ __html: data.bio_loc }}></p>
+              <p className="font-normal pt-1 opacity-70 text-sm"
+                dangerouslySetInnerHTML={{ __html: data.bio_loc }}></p>
             </div>
           </Suspense>
         </CardContent>
