@@ -84,29 +84,29 @@ async function Page({ params }: { params: { id: string } }) {
 
                 <p className="flex items-center gap-1 text-sm">
                   <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png" alt="str" width={20} height={20} />
-                  <span className=""> {data.str_base} </span>
-                  <span className="text-muted-foreground text-xs"> +{data.str_gain}</span>
+                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] "> {data.str_base} </span>
+                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] text-muted-foreground text-xs"> +{data.str_gain}</span>
                 </p>
 
                 <p className="flex items-center gap-1 my-2 text-sm">
                   <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png" alt="str" width={20} height={20} />
-                  <span className=""> {data.agi_base} </span>
-                  <span className="text-muted-foreground text-xs"> +{data.agi_gain}</span>
+                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] "> {data.agi_base} </span>
+                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] text-muted-foreground text-xs"> +{data.agi_gain}</span>
                 </p>
 
                 <p className="flex items-center gap-1 text-sm">
                   <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png" alt="str" width={20} height={20} />
-                  <span className=""> {data.int_base} </span>
-                  <span className="text-muted-foreground text-xs"> +{data.int_gain}</span>
+                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] "> {data.int_base} </span>
+                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] text-muted-foreground text-xs"> +{data.int_gain}</span>
                 </p>
 
                 <p className="text-xs w-20 text-center mb-0.5 bg-green-600 mt-2">
-                  <span className="font-bold">{data.max_health}</span> 
-                  <span className="text-[10px]"> +{parseFloat(data.health_regen).toFixed(2)}</span>
+                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] font-bold">{data.max_health}</span> 
+                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] text-[10px]"> +{parseFloat(data.health_regen).toFixed(2)}</span>
                 </p>
                 <p className="text-xs w-20 text-center bg-blue-500"> 
-                  <span className="font-bold">{data.max_mana}</span>  
-                  <span className="text-[10px]"> +{parseFloat(data.mana_regen).toFixed(2)}</span>
+                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] font-bold">{data.max_mana}</span>  
+                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] text-[10px]"> +{parseFloat(data.mana_regen).toFixed(2)}</span>
                 </p>
 
               </div>

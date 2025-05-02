@@ -95,14 +95,15 @@ export default function HeroTable({data}:any) {
                                             : attrLink + "universal.png"
 
                         return(
-                        <Link key={i} href={`/dota/${data.id}`} className="" >
+                        <Link key={i} href={`/dota/${data.id}`} className="group" >
                             <Suspense fallback={<div className="w-[100px] h-[55px] bg-neutral-600 animate-ping">...</div>}>
-                                <div 
-                                    className="group basis-32 relative flex flex-col items-center justify-center self-center cursor-default border border-muted hover:border-muted-foreground transition"
+                                <div
+                                    title={data.name_loc}
+                                    className="group-hover:cursor-pointer basis-32 relative flex flex-col items-center justify-center self-center cursor-default border border-muted hover:border-muted-foreground transition"
                                 >
-                                    <Image id={name} priority src={`https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/${data.name.slice(14)}.png`} width={100} height={55} alt={data.name} className="w-auto h-auto min-w-24 min-h-14 select-none" style={{opacity: isSearch ? 1 : 0.2}} />
-                                    <p className="text-xs text-muted-foreground py-1">{data.name_loc}</p>
-                                    <Image src={primary_attr} width={20} height={20} alt="attr" className="absolute top-1 left-1 [filter:_drop-shadow(2px_2px_2px_black)]" />
+                                    <Image id={name} priority src={`https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/${data.name.slice(14)}.png`} width={100} height={55} alt={data.name} className="w-20 md:w-auto h-auto select-none " style={{opacity: isSearch ? 1 : 0.2}} />
+                                    <p className="text-xs text-muted-foreground py-1 w-20 md:w-auto text-center overflow-hidden text-nowrap text-ellipsis">{data.name_loc}</p>
+                                    <Image src={primary_attr} width={20} height={20} alt="attr" className="size-4 md:size-5 absolute top-1 left-1 [filter:_drop-shadow(2px_2px_2px_black)]" />
                                 </div>
                             </Suspense>
                         </Link>
