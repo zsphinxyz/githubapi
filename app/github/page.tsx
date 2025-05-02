@@ -1,80 +1,41 @@
-'use client'
+
 import { ModeToggle } from "@/components/Mode";
 import UserData from "@/components/UserData";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { div } from "framer-motion/client";
+import { redirect } from "next/navigation";
 
 
-export default function Home() {
+export default async function Home({searchParams}: {searchParams: { [key: string]: string | string[] | undefined }}) {
+  const {q} = searchParams
+  const searchName = q || 'github'
+  // console.log(searchName)
 
-  const [data, setData] = useState<any>([])
-  const [repos, setRepos] = useState<any>([])
-  const [input, setInput] = useState('')    // user input dynamic
-  const [search, setSearch] = useState('github')  // user input
+  const res = await fetch(`https://api.github.com/users/${searchName}`)
+  const data = await res.json()
 
-  async function getAll() {
-    const getGithubData = async (user: string) => {
-      try {
-        let res = await fetch(`https://api.github.com/users/${user}`)
-        if (!res.ok) {
-          return ({})
-        }
-        return (
-          res.json()
-        )
-      } catch (error) {
-        console.log(error)
-      }
+  const res_repos = await fetch(`https://api.github.com/users/${searchName}/repos`)
+  const repos = await res_repos.json()
 
-    }
-
-    const getGithubRepo = async (user: string) => {
-      try {
-        const res = await fetch(`https://api.githb.com/users/${user}/repos`)
-        if (!res.ok) {
-          return ({})
-        }
-        return (
-          res.json()
-        )
-      } catch (error) {
-        console.log(error)
-      }
-
-    }  
-    
-    const apiData = await getGithubData(search);
-    const apiRepos = await getGithubRepo(search);
-
-    setData(apiData)
-    setRepos(apiRepos)
-  }
-
-  useEffect(()=>{
-    if (search != '') {
-      try {
-        getAll();
-      } catch (error) {
-        setData(null)
-        setRepos([])
-      }
-
-    }
-    console.log(data, repos)
-  },[search])
-
-  // console.log(data, repos)
   return (
     <div className=''>
-      <div className="mx-auto my-3 flex w-full max-w-sm items-center space-x-2">
-        <Input type="text" onChange={(e)=>setInput(e.target.value)} placeholder="Search by Github User Name" />
-        <Button type="submit" onClick={() => setSearch(input)}>Search</Button>
+      <div className="flex items-center justify-center">
+        <form className="mx-auto my-3 flex w-full max-w-sm items-center space-x-2" action={ async (formData:FormData) => {
+          "use server";
+          const username = formData.get("username") as string;
+          redirect("?q="+username)
+        }}>
+          <Input type="text" name='username' placeholder="github" defaultValue={searchName} />
+          <Button type="submit" >Search</Button>
+        </form>
         <div className="mr-auto block">
           <ModeToggle />
         </div>
       </div>
-          <UserData data={data} repos={repos} />
+
+        <UserData data={data} repos={repos} />
+
      
     </div>
     

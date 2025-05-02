@@ -4,6 +4,18 @@ import Image from "next/image";
 
 export default function UserData({data, repos}:any) {
 
+  // console.log(data, repos)
+  if(data.status == '404' && repos.status == '404') {
+    return (
+      <div className="text-red-500 text-center bg-red-400/20 text-xl font-bold">Not found</div>
+    )
+  }
+  else if(data?.message?.includes("limit exceeded")) {
+    return(
+      <div className="text-red-500 bg-red-400/20 text-xl font-bold text-center py-5">API call limit Exceeded</div>
+    )
+  }
+
     return(
         <>
         <Card className="w-11/12 mx-auto">
@@ -42,7 +54,7 @@ export default function UserData({data, repos}:any) {
 
             <TableBody>
                 {
-                  repos ? repos.map( (repo:any) => (
+                  repos ? repos?.map( (repo:any) => (
                     <TableRow key={repo.id}>
                       <TableCell>{repo.id}</TableCell>
                       <TableCell >{repo.name}</TableCell>
