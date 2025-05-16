@@ -3,11 +3,21 @@
 import Image from 'next/image'
 import { useState } from 'react';
 
+// https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/innate_icon.png
 
 export default function Abilities({ data }: { data: any }) {
   const [ability, setAbility] = useState(0);
   return (
     <div className="mb-5 h-full self-stretch w-full">
+      <div className="">
+        <div className="">
+          <Image title='innate ability' src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/innate_icon.png" alt="innate" width={25} height={25} className='inline mr-1'/>
+          <span className="font-medium">{data.abilities[data.abilities.length-1].name_loc}</span>
+        </div>
+        <p className="text-xs text-muted-foreground pl-7 mb-2">
+          {data.abilities[data.abilities.length - 1].desc_loc}
+        </p>
+      </div>
       <div className="w-full h-full flex gap-1 flex-wrap items-center justify-center md:mb-auto md:mt-5 ">
         {
           data.abilities.filter((skill: any) => !skill.ability_is_granted_by_shard && !skill.ability_is_granted_by_septer && !skill.ability_is_innate)
