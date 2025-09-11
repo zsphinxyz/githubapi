@@ -1,3 +1,2 @@
-[githubapi](https://api.github.com)
-
- 
+- [Github API](https://api.github.com)
+- [Open Dota API](https://docs.opendota.com/)
