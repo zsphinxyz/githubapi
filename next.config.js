@@ -42,6 +42,22 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'cdn.dota2.comundefined'
             },
+            {
+                protocol: 'https',
+                hostname: 'cdn.steamstatic.com'
+            },
+            {
+                protocol: 'https',
+                hostname: 'cdn.steamusercontent.com'
+            },
+            {
+                protocol: 'https',
+                hostname: 'steamcdn-a.akamaihd.net'
+            },
+            {
+                protocol: 'https',
+                hostname: 'steamusercontent-a.akamaihd.net'
+            },
         ]
     }
 }
