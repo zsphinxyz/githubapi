@@ -8,14 +8,14 @@ import { useState } from 'react';
 export default function Abilities({ data }: { data: any }) {
   const [ability, setAbility] = useState(0);
   return (
-    <div className="mb-5 h-full self-stretch w-full">
+    <div className="mb-5 h-full self-stretch w-full cursor-[inherit]">
       <div className="">
         <div className="">
           <Image title='innate ability' src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/innate_icon.png" alt="innate" width={25} height={25} className='inline mr-1'/>
           <span className="font-medium">{data.abilities.filter((skill:any)=>skill.ability_is_innate)[0].name_loc}</span>
         </div>
         <p className="text-xs text-muted-foreground pl-7 mb-2">
-          {data.abilities.filter((skill:any)=>skill.ability_is_innate)[0].desc_loc}
+          {data.abilities.filter((skill:any)=>skill.ability_is_innate)[0].desc_loc.replaceAll(/%.*%/gm, "{...}")}
         </p>
       </div>
       <div className="w-full h-full flex gap-1 flex-wrap items-center justify-center md:mb-auto md:mt-5 ">
@@ -28,7 +28,7 @@ export default function Abilities({ data }: { data: any }) {
                   role='button'
                   key={skill.id}
                   title={skill.name_loc} 
-                  className="group flex flex-col flex-wrap items-center justify-center gap-1 max-w-24"
+                  className="group flex flex-col flex-wrap items-center justify-center gap-1 max-w-24 cursor-dota-green"
                   onClick={() => setAbility(skill.id)}
                 >
                   <div className="relative">
@@ -67,13 +67,9 @@ export default function Abilities({ data }: { data: any }) {
             ability == 0 ? 
               data.abilities[0].desc_loc 
             : 
-              data.abilities.filter((skill: any) => skill.id == ability)[0].desc_loc
+              data.abilities.filter((skill: any) => skill.id == ability)[0].desc_loc.replaceAll(/%.*%/gm, "{...}")
           }
         </p>
-
-        <div className="">
-
-        </div>
         
       </div>
 

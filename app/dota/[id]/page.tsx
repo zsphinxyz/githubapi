@@ -46,7 +46,7 @@ async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="w-full max-w-screen-lg mx-auto my-5 relative overflow-hidden cursor-default">
+    <div className="w-full max-w-screen-lg mx-auto my-5 relative overflow-hidden cursor-[inherit]">
       <Card className="bg-transparent">
 
         <CardHeader>
@@ -54,8 +54,8 @@ async function Page({ params }: { params: { id: string } }) {
             <CardTitle className="">
               <p className="text-3xl font-bold">
                 {data.name_loc}
-                <Image src={primary_attr} alt="attributes" width={22} height={22} className="inline ml-1" />
-                <Image src={hero_attack} alt="type" width={22} height={22} className="inline ml-1" />
+                <Image src={primary_attr} title={primary_attr.split("/").pop()?.split(".")[0].replace("hero_", "")} alt="attributes" width={22} height={22} className="inline ml-1" />
+                <Image src={hero_attack} title={hero_attack.split("/").pop()?.split(".")[0]} alt="type" width={22} height={22} className="inline ml-1" />
               </p>
               <p className="font-normal pt-1 opacity-70 text-sm">{data.npe_desc_loc}</p>
 

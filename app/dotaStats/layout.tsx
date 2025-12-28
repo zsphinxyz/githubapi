@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Dota 2 TI2025 Stats',
+  title: 'Dota 2 Matches Stats',
   description: 'opendota api project',
   keywords: ["dota2", "The International", "TI 2025", "Dota", "Esport", "Game", "MOBA"],
   openGraph: {

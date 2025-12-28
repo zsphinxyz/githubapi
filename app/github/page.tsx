@@ -1,9 +1,7 @@
 
-import { ModeToggle } from "@/components/Mode";
 import UserData from "@/components/UserData";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { div } from "framer-motion/client";
 import { redirect } from "next/navigation";
 
 
@@ -29,9 +27,9 @@ export default async function Home({searchParams}: {searchParams: { [key: string
           <Input type="text" name='username' placeholder="github" defaultValue={searchName} />
           <Button type="submit" >Search</Button>
         </form>
-        <div className="mr-auto block">
+        {/* <div className="mr-auto block">
           <ModeToggle />
-        </div>
+        </div> */}
       </div>
 
         <UserData data={data} repos={repos} />

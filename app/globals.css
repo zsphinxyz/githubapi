@@ -100,6 +100,13 @@ body {
   background-size: 40px 40px;
 }
 
+.cursor-dota {
+  cursor: url('../public/assets/dota/cursor_default.png'), auto;
+}
+.cursor-dota-green {
+  cursor: url('../public/assets/dota/cursor_default_team.png'), auto;
+}
+
 @media (prefers-color-scheme: dark) {
   .dark{
     --foreground-rgb: 255, 255, 255;

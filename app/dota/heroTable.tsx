@@ -64,13 +64,13 @@ export default function HeroTable({data}:any) {
     }, [key])
 
     return (
-        <div>
-            <label htmlFor="attr">Sort By</label>
-            <select name="attr" id="attr" onChange={(e) => setSort(e.target.value)} className="bg-muted text-muted-foreground rounded-md p-1 mb-2">
+        <div className="dota-cursor">
+            <label htmlFor="attr" className="cursor-[inherit]">Sort By</label>
+            <select name="attr" id="attr" onChange={(e) => setSort(e.target.value)} className="bg-muted text-muted-foreground rounded-md p-1 mb-2 cursor-[inherit]">
                 <option value="id">Id</option>
                 <option value="attr">Attributes</option>
             </select>
-            <div className="flex gap-2 flex-wrap relative items-center justify-center">
+            <div className="flex gap-2 flex-wrap relative items-center justify-center dota-cursor">
                 {
                     data.sort( (a:any, b:any) => {
                         if (sort === 'id') {
@@ -95,13 +95,13 @@ export default function HeroTable({data}:any) {
                                             : attrLink + "universal.png"
 
                         return(
-                        <Link key={i} href={`/dota/${data.id}`} className="group" >
+                        <Link key={i} href={`/dota/${data.id}`} className="group cursor-dota-green" >
                             <Suspense fallback={<div className="w-[100px] h-[55px] bg-neutral-600 animate-ping">...</div>}>
                                 <div
                                     title={data.name_loc}
-                                    className="group-hover:cursor-pointer basis-32 relative flex flex-col items-center justify-center self-center cursor-default border border-muted hover:border-muted-foreground transition"
+                                    className="basis-32 relative flex flex-col items-center justify-center self-center border border-muted hover:border-muted-foreground transition"
                                 >
-                                    <Image id={name} priority src={`https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/${data.name.slice(14)}.png`} width={100} height={55} alt={data.name} className="w-20 md:w-auto h-auto select-none " style={{opacity: isSearch ? 1 : 0.2}} />
+                                    <Image id={name} priority src={`https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/${data.name.slice(14)}.png`} width={100} height={55} alt={data.name} className="w-20 min-w-32 md:w-auto h-auto select-none " style={{opacity: isSearch ? 1 : 0.2}} />
                                     <p className="text-xs text-muted-foreground py-1 w-20 md:w-auto text-center overflow-hidden text-nowrap text-ellipsis">{data.name_loc}</p>
                                     <Image src={primary_attr} width={20} height={20} alt="attr" className="size-4 md:size-5 absolute top-1 left-1 [filter:_drop-shadow(2px_2px_2px_black)]" />
                                 </div>
@@ -109,7 +109,7 @@ export default function HeroTable({data}:any) {
                         </Link>
                     )})
                 }
-            <div className="fixed inset-1/2 w-fit -translate-x-1/2 -translate-y-1/2 z-10 text-[1000%] cursor-none pointer-events-none">{key.toUpperCase()}</div>
+            <div className="fixed inset-1/2 w-fit -translate-x-1/2 -translate-y-1/2 z-10 text-[1000%] pointer-events-none">{key.toUpperCase()}</div>
             </div>
             {/* <div className="size-16 bg-white rounded-full absolute inset-0 -translate-1/2 -translate-y-1/2" style={{top: y, left: x}} /> */}
         </div>

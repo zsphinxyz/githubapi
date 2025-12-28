@@ -20,7 +20,7 @@ export default async function Trending({ API_ENDPOINT, maxResults, apiKey }: { A
           // const nData = data[i]
           // console.log(nData)
           return (
-            <Link href={`youtube/${nData.id}`} key={nData.id} className={`min-w-full sm:min-w-[360px] bg-gradient-to-b from-black/0 via-black/10 to-white/5 hover:to-teal-300/20 p-1 sm:rounded-2xl shadow-sm shadow-red-500 hover:shadow-md hover:shadow-green-300/50 `} style={{ width: nData.snippet.thumbnails.medium.width }} >
+            <Link href={`youtube/${nData.id}`} key={nData.id} className={`min-w-full sm:min-w-[360px] bg-gradient-to-b from-black/0 via-black/10 to-white/5 hover:to-teal-300/20 p-1 sm:rounded-2xl shadow-sm shadow-stone-500 hover:shadow-md hover:shadow-slate-300/50 `} style={{ width: nData.snippet.thumbnails.medium.width }} >
               <Suspense fallback={'🔘'}>
                 <Image className="border border-white/30 sm:rounded-2xl mx-auto transition-all duration-300 delay-150 aspect-video object-cover"
                   src={nData.snippet.thumbnails.high.url}

@@ -19,7 +19,7 @@ export default async function page({params}: {params: {id:string}}) {
 
   const video = {__html: (await data.items[0].player.embedHtml.replace(480, 480*2).replace(270, 270*2) as string)}
   return (
-    <section className=" p-5 w-full h-dvh">
+    <section className=" p-5 w-full min-h-dvh">
 
     {/* <iframe width="480" height="270" src="//www.youtube.com/embed/B0J27sf9N1Y" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe> */}
       <div className="mx-auto flex items-center justify-center" dangerouslySetInnerHTML={video} />

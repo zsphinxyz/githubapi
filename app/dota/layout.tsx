@@ -19,11 +19,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="">
+    <div className="cursor-dota">
 
         <header className='p-3 bg-muted'>
-            <Link href='/dota' className='text-xl font-bold'>
-              <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/dota_footer_logo.png" alt="dota2_logo" width={100} height={100} className='w-auto h-auto' />
+            <Link href='/dota' className='font-bold cursor-dota-green block w-max'>
+              <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/dota_footer_logo.png" alt="dota-2 logo" width={100} height={100} className='w-auto h-auto' />
             </Link>
         </header>
         

@@ -25,10 +25,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-            <nav className="bg-white/20 p-3 w-full max-w-6xl mx-auto block">
+            <nav className="bg-slate-800 p-3 w-full block">
+              <div className="max-w-6xl mx-auto">
               <Link href='/youtube?q' className='text-2xl font-extrabold bg-red-600 px-2 py-1 rounded-xl hover:shadow-md hover:drop-shadow-lg transition-all '>
                 Z Tube
               </Link>
+              </div>
             </nav>
             <section className="">
               {children}

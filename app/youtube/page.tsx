@@ -3,7 +3,7 @@ import { EyeOpenIcon } from "@radix-ui/react-icons"
 import { revalidatePath } from "next/cache"
 import Image from "next/image"
 import Link from "next/link"
-import { redirect } from "next/navigation"
+import { redirect, RedirectType } from "next/navigation"
 import { Suspense } from "react"
 import { BiComment, BiEnvelope } from "react-icons/bi"
 import { TbThumbUp } from "react-icons/tb"
@@ -13,7 +13,7 @@ import Trending from "./trending"
 export default async function page({searchParams}: {searchParams: {q:string, result:number}}) {
   const API_ENDPOINT = 'https://youtube.googleapis.com/youtube/v3'
   const key = process.env.YOUTUBE_API_KEY
-  let maxResults = searchParams.result || 3
+  const maxResults = searchParams.result || 20
 
 
   async function getVideos(q:string) {
@@ -27,7 +27,7 @@ export default async function page({searchParams}: {searchParams: {q:string, res
 
   let items = await getVideos(searchParams.q)
 
-  async function handleSearch(formData: FormData) {
+async function handleSearch(formData: FormData) {
     'use server'
     const q = formData.get('q') as string;
     revalidatePath('/youtube')
@@ -36,13 +36,11 @@ export default async function page({searchParams}: {searchParams: {q:string, res
 
   async function loadMore() {
     'use server'
-    searchParams.result = 6
-    redirect(`?result=`+ searchParams.result)
+    redirect(`?result=50`, RedirectType.push)
   }
 
-
   return (
-    <section className="bg-green-200/20 p-5 min-h-[calc(100vh-56px)]">
+    <section className="bg-slate-900 p-5 min-h-[calc(100vh-56px)]">
 
       <form action={handleSearch} className="w-1/2 mx-auto border mb-3 outline-none border-none">
         <input type="search" name="q" id='q' defaultValue={searchParams.q} placeholder="Search..." className="w-full py-2 px-5 border border-muted bg-white/20 focus:border-muted-foreground outline-none rounded-full" />
@@ -62,8 +60,8 @@ export default async function page({searchParams}: {searchParams: {q:string, res
             const channelRes = await fetch(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${item.snippet.channelId}&key=${key}`, {method: 'GET', })
             const cData = await channelRes.json()
             return (
-                <Link href={`youtube/${item.id.videoId}`} key={item.id.videoId} className={`min-w-full sm:min-w-[360px] bg-gradient-to-b from-black/0 via-black/10 to-white/5 hover:to-teal-300/20 p-1 sm:rounded-2xl shadow-sm shadow-red-500 hover:shadow-md hover:shadow-green-300/50 transition-all`} style={{ width: item.snippet.thumbnails.medium.width }} >
-                  <Suspense fallback={'🔘'}>
+                <Link href={`youtube/${item.id.videoId}`} key={item.id.videoId} className={`min-w-full sm:min-w-[360px] bg-gradient-to-b from-black/0 via-black/10 to-white/5 hover:to-teal-300/20 p-1 sm:rounded-2xl shadow-sm shadow-stone-500 hover:shadow-md hover:shadow-slate-300/50 transition-all`} style={{ width: item.snippet.thumbnails.medium.width }} >
+                  <Suspense fallback={'◌'}>
                     <Image  className="border border-white/30 sm:rounded-2xl mx-auto transition-all duration-300 delay-150 aspect-video object-cover" 
                             src={item.snippet.thumbnails.high.url} 
                             alt={item.snippet.title} 
@@ -72,7 +70,7 @@ export default async function page({searchParams}: {searchParams: {q:string, res
                     />
                   </Suspense>
                   <div className="py-2 flex gap-1 items-start">
-                    <Suspense fallback={'🔘'}>
+                    <Suspense fallback={'◌'}>
                       <Image  className="rounded-full grow-0 object-cover max-w-10 aspect-square scale-90" 
                               src={cData.items[0].snippet.thumbnails.default.url} 
                               width={88}
@@ -103,9 +101,14 @@ export default async function page({searchParams}: {searchParams: {q:string, res
         </div>
       
       {/* <Link href={`?q=${searchParams.q}&result=5`}>Load More</Link> */}
-      <form action={loadMore}>
-        <button type="submit">Load More...</button>
-      </form>
+      {
+        maxResults < 50 &&
+        (
+          <form action={loadMore}>
+            <button type="submit" className="block mx-auto mt-5">Load More...</button>
+          </form>
+        )
+      }
       
     </section>
   )
