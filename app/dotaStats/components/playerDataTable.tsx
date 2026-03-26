@@ -134,9 +134,9 @@ export function PlayerDataTable<TData, TValue>({
 
         </div>
       </div>
-      <div ref={containerRef} className="border group transition-all relative min-h-full max-h-[460px] overflow-auto">
+      <div ref={containerRef} className="border group transition-all relative min-h-full max-h-115 overflow-auto">
         <Table className="bg-slate-700 relative">
-          <TableHeader className="!sticky !top-0 bg-slate-800 z-20">
+          <TableHeader className="sticky! top-0! bg-slate-800 z-20">
             {
               table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
@@ -182,7 +182,7 @@ export function PlayerDataTable<TData, TValue>({
                         hidden = {!!Object.entries(subColsHidden).filter(kvArr => cell.column.id.includes(kvArr[0])).flat()[1]}
                         key={cell.id} 
                         className={`
-                          ${cell.column.id == "name" && "sticky left-0 z-[0]"}
+                          ${cell.column.id == "name" && "sticky left-0 z-0"}
                           ${(cell.column.id == "name" && idx % 2 == 0) && "bg-[#2e3a4c]"}
                           ${(cell.column.id == "name" && idx % 2 !== 0) && "bg-[#334155]"}
                           ${(cell.column.columnDef.header?.toString().includes("avg") || cell.column.id.includes("count")) && "border-r border-r-white/20"}
@@ -210,9 +210,9 @@ export function PlayerDataTable<TData, TValue>({
         <input type="checkbox" name="more" id="more" className="peer hidden"
           onChange={(e) => {
             if (e.target.checked) {
-              containerRef.current?.classList.add("!max-h-full");
+              containerRef.current?.classList.add("max-h-full!");
             } else {
-              containerRef.current?.classList.remove("!max-h-full");
+              containerRef.current?.classList.remove("max-h-full!");
             }
           }}
         />

@@ -19,6 +19,7 @@ async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
   const res = await fetch(`https://www.dota2.com/datafeed/herodata?language=english&hero_id=${id}`)
   const data = (await res.json()).result.data.heroes[0];
+
   const attrLink = "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/hero_"
   const primary_attr = data.primary_attr == 0 ? attrLink + "strength.png"
     : data.primary_attr == 1 ? attrLink + "agility.png"
@@ -27,6 +28,11 @@ async function Page({ params }: { params: { id: string } }) {
 
   const attack_capability_link = "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/"
   const hero_attack = data.attack_capability == 1 ? attack_capability_link + "melee.svg" : attack_capability_link + "ranged.svg"  
+  
+  const ROLES = ["carry", "support", "nuker", "disabler", "jungler", "durable", "escape", "pusher", "initiator"];
+  const hero_roles = data.role_levels;
+
+  const complexity = data.complexity as number;
 
   // console.log(data)
   // const skills = await data.abilities
@@ -46,16 +52,30 @@ async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="w-full max-w-screen-lg mx-auto my-5 relative overflow-hidden cursor-[inherit]">
+    <div className="w-full max-w-7xl mx-auto my-5 relative overflow-hidden cursor-[inherit]">
       <Card className="bg-transparent">
-
+{/*  */}
         <CardHeader>
           <Suspense fallback={'...'}>
             <CardTitle className="">
-              <p className="text-3xl font-bold">
-                {data.name_loc}
-                <Image src={primary_attr} title={primary_attr.split("/").pop()?.split(".")[0].replace("hero_", "")} alt="attributes" width={22} height={22} className="inline ml-1" />
-                <Image src={hero_attack} title={hero_attack.split("/").pop()?.split(".")[0]} alt="type" width={22} height={22} className="inline ml-1" />
+              <p className="text-3xl font-bold space-x-1">
+                <span className="inline-block">{data.name_loc}</span>
+                <Image src={primary_attr} title={primary_attr.split("/").pop()?.split(".")[0].replace("hero_", "")} alt="attributes" width={22} height={22} className="inline-block" />
+                <Image src={hero_attack} title={hero_attack.split("/").pop()?.split(".")[0]} alt="type" width={22} height={22} className="inline-block" />
+                <span title="complexity" className="inline-block text-xl align-middle tracking-[-2px]">
+                  {Array.from({length: 3}, (_, i) => (
+                    <span key={i}>{complexity > i ? "◆" : "◇"}</span>
+                  ))}
+                </span>
+              </p>
+              <p className="flex gap-1 my-1 flex-wrap">
+                {
+                  hero_roles.map( (role: number, idx: number) => (
+                    <span className={`basis-16 ${hero_roles[idx] == 0 ?  'text-neutral-600' : hero_roles[idx] == 1 ? 'text-yellow-500' : 'text-green-500'} text-xs py-0.5 bg-current/10 border font-normal border-current/20 text-center capitalize block rounded-[4px]`} key={idx}>
+                      {ROLES[idx]}
+                    </span>
+                  ))
+                }
               </p>
               <p className="font-normal pt-1 opacity-70 text-sm">{data.npe_desc_loc}</p>
 
@@ -72,7 +92,7 @@ async function Page({ params }: { params: { id: string } }) {
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-2">
 
-            <div className="relative shrink-0 mb-auto">
+            <div className="relative shrink-0 mb-auto min-w-80">
               <video className="max-h-96 mx-auto"
                 loop autoPlay playsInline preload="auto" poster={`https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${data.name.slice(14)}.png`}>
                 <source type="video/webm" src={`https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${data.name.slice(14)}.webm`} />
@@ -84,29 +104,29 @@ async function Page({ params }: { params: { id: string } }) {
 
                 <p className="flex items-center gap-1 text-sm">
                   <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png" alt="str" width={20} height={20} />
-                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] "> {data.str_base} </span>
-                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] text-muted-foreground text-xs"> +{data.str_gain}</span>
+                  <span className="[text-shadow:0.5px_0.5px_1px_#000000aa] "> {data.str_base} </span>
+                  <span className="[text-shadow:0.5px_0.5px_1px_#000000aa] text-muted-foreground text-xs"> +{data.str_gain}</span>
                 </p>
 
                 <p className="flex items-center gap-1 my-2 text-sm">
                   <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png" alt="str" width={20} height={20} />
-                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] "> {data.agi_base} </span>
-                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] text-muted-foreground text-xs"> +{data.agi_gain}</span>
+                  <span className="[text-shadow:0.5px_0.5px_1px_#000000aa] "> {data.agi_base} </span>
+                  <span className="[text-shadow:0.5px_0.5px_1px_#000000aa] text-muted-foreground text-xs"> +{data.agi_gain}</span>
                 </p>
 
                 <p className="flex items-center gap-1 text-sm">
                   <Image src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png" alt="str" width={20} height={20} />
-                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] "> {data.int_base} </span>
-                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] text-muted-foreground text-xs"> +{data.int_gain}</span>
+                  <span className="[text-shadow:0.5px_0.5px_1px_#000000aa] "> {data.int_base} </span>
+                  <span className="[text-shadow:0.5px_0.5px_1px_#000000aa] text-muted-foreground text-xs"> +{data.int_gain}</span>
                 </p>
 
                 <p className="text-xs w-20 text-center mb-0.5 bg-green-600 mt-2">
-                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] font-bold">{data.max_health}</span> 
-                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] text-[10px]"> +{parseFloat(data.health_regen).toFixed(2)}</span>
+                  <span className="[text-shadow:0.5px_0.5px_1px_#000000aa] font-bold">{data.max_health}</span> 
+                  <span className="[text-shadow:0.5px_0.5px_1px_#000000aa] text-[10px]"> +{parseFloat(data.health_regen).toFixed(2)}</span>
                 </p>
                 <p className="text-xs w-20 text-center bg-blue-500"> 
-                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] font-bold">{data.max_mana}</span>  
-                  <span className="[text-shadow:_0.5px_0.5px_1px_#000000aa] text-[10px]"> +{parseFloat(data.mana_regen).toFixed(2)}</span>
+                  <span className="[text-shadow:0.5px_0.5px_1px_#000000aa] font-bold">{data.max_mana}</span>  
+                  <span className="[text-shadow:0.5px_0.5px_1px_#000000aa] text-[10px]"> +{parseFloat(data.mana_regen).toFixed(2)}</span>
                 </p>
 
               </div>
@@ -144,7 +164,7 @@ async function Page({ params }: { params: { id: string } }) {
         </CardFooter>
       </Card>
 
-      {/* <Image src={`https://cdn.dota2.com${hero.img}`} fill alt={hero.localized_name} className="ml-3 absolute left-0 top-0 inline z-[-1] !blur-3xl !opacity-15 rotate-180" /> */}
+      {/* <Image src={`https://cdn.dota2.com${hero.img}`} fill alt={hero.localized_name} className="ml-3 absolute left-0 top-0 inline z-[-1] blur-3xl! opacity-15! rotate-180" /> */}
     </div>
   )
 }

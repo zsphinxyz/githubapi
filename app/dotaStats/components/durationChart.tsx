@@ -6,7 +6,7 @@ const DurationTooltip = ({ active, payload }: any) => {
   if (!active || !payload || payload.length === 0) return null;
   const p = payload[0].payload as TMatchDuration;
   return (
-    <div className='bg-slate-900/90 text-slate-200 p-2 rounded-lg shadow-sm text-sm min-w-36'>
+    <div className='bg-slate-900/90 text-slate-200 p-2 rounded-lg shadow-xs text-sm min-w-36'>
       <div className='mb-1 leading-snug'>
         <p className={`text-green-500 font-medium ${p.radiant_win ? "opacity-100" : "opacity-75"}`}> {p.radiant_team_name} {p.radiant_win && "👑"} </p>
         <p className={`text-red-400 font-medium ${!p.radiant_win ? "opacity-100" : "opacity-75"}`}> {p.dire_team_name} {!p.radiant_win && "👑"}</p>

@@ -31,26 +31,26 @@ export default function Abilities({ data }: { data: any }) {
                     <Image
                       src={`https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/abilities/${skill.name}.png`} alt={skill.name}
                       width={90} height={90}
-                      className={`select-none bg-slate-800 text-transparent group-hover:scale-105 size-20 md:w-auto max-w-[90px] text-xs transition border-2 ${ability == skill.id || (ability == 0 && idx == 0) ? "border-white" : "border-transparent"} `}
+                      className={`select-none bg-slate-800 text-transparent group-hover:scale-105 size-20 md:w-auto max-w-22.5 text-xs transition border-2 ${ability == skill.id || (ability == 0 && idx == 0) ? "border-white" : "border-transparent"} `}
                     />
                     {
-                      (skill.ability_is_granted_by_shard || skill.ability_has_shard) &&
-                      <Image title='shard' src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_shard_icon.png" alt="shard" width={25} height={25} className='absolute -bottom-4 right-0 [filter:drop-shadow(2px_2px_2px_#000)]' />
+                      (skill.ability_is_granted_by_shard || skill.ability_has_shard) && 
+                      <img title='shard' src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_shard_icon.png" alt="shard" width={25} height={25} className='absolute -bottom-4 right-0 filter-[drop-shadow(2px_2px_2px_#000)]' />
                     }
                     {
-                      (skill.ability_is_granted_by_scepter || skill.ability_has_scepter) &&
-                      <Image title='scepter' src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_scepter_icon.png" alt="scepter" width={25} height={25} className='absolute -bottom-0 right-0 [filter:drop-shadow(2px_2px_2px_#000)]' />
+                      (skill.ability_is_granted_by_scepter || skill.ability_has_scepter) && 
+                      <img title='scepter' src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_scepter_icon.png" alt="scepter" width={25} height={25} className='absolute bottom-0 right-0 filter-[drop-shadow(2px_2px_2px_#000)]' />
                     }
                     {
                       skill.ability_is_innate &&
-                      <Image title='innate ability' src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/innate_icon.png" alt="innate" width={25} height={25} className='absolute -bottom-2 left-1/3 [filter:drop-shadow(2px_2px_2px_#000)] bg-slate-900 rounded-full' />                    
+                      <img title='innate ability' src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/icons/innate_icon.png" alt="innate" width={25} height={25} className=' absolute -bottom-2 left-1/2 -translate-x-1/2 filter-[drop-shadow(2px_2px_2px_#000)] bg-slate-900 rounded-full' />                    
                     }
                   </div>
                   <p className="text-xs text-muted-foreground py-1 truncate w-20 text-center">{skill.name_loc}</p>
                 </div>
               )
             })
-        }
+          }
       </div>
 
       <div className="">
@@ -92,7 +92,7 @@ export default function Abilities({ data }: { data: any }) {
                 data.abilities.filter((skill: any) => skill.id == ability)[0]?.scepter_loc
             }}
             />
-            <Image src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_scepter_icon.png" alt="scepter" width={25} height={25} className='peer-empty:hidden absolute -top-2 -left-3 [filter:drop-shadow(2px_2px_2px_#000)]' />
+            <img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_scepter_icon.png" alt="scepter" width={25} height={25} className='peer-empty:hidden absolute -top-2 -left-3 filter-[drop-shadow(2px_2px_2px_#000)]' />
         </div>
 
           {/* Shard */}
@@ -106,7 +106,7 @@ export default function Abilities({ data }: { data: any }) {
                     data.abilities.filter((skill: any) => skill.id == ability)[0]?.shard_loc
                 }}
               />
-              <Image src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_shard_icon.png" alt="shard" width={25} height={25} className='peer-empty:hidden absolute -top-1 -left-3 [filter:drop-shadow(2px_2px_2px_#000)]' />
+              <img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_shard_icon.png" alt="shard" width={25} height={25} className='peer-empty:hidden absolute -top-1 -left-3 filter-[drop-shadow(2px_2px_2px_#000)]' />
             </div>
           </Suspense>
         </section>

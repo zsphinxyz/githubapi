@@ -119,9 +119,9 @@ export function TeamDataTable<TData, TValue>({
         </div>
 
       </div>
-      <div className="border group transition-all relative min-h-[460px] max-h-dvh overflow-auto">
+      <div className="border group transition-all relative min-h-115 max-h-dvh overflow-auto">
         <Table className="bg-slate-700 relative">
-            <TableHeader className="!sticky !top-0 z-10 bg-slate-800">
+            <TableHeader className="sticky! top-0! z-10 bg-slate-800">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 <TableHead>No</TableHead>
@@ -170,7 +170,7 @@ export function TeamDataTable<TData, TValue>({
                             key={cell.id} 
                             className={`
                               ${(cell.column.columnDef.header?.toString().includes("avg") || cell.column.columnDef.header?.toString().includes("matches")) && "border-r border-r-white/20"}
-                              ${cell.column.id == "team_name" && "sticky left-0 z-[0]"}
+                              ${cell.column.id == "team_name" && "sticky left-0 z-0"}
                               ${(cell.column.id == "team_name" && idx % 2 == 0) && "bg-[#2e3a4c]"}
                               ${(cell.column.id == "team_name" && idx % 2 !== 0) && "bg-[#334155]"}
                             `}   
