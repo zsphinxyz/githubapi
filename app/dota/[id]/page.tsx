@@ -39,6 +39,7 @@ async function Page({ params }: { params: { id: string } }) {
   // console.log(skills)
   // https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/abilities/${res.}.png
   // https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/axe.png
+  
   async function NextAction() {
     'use server'
     const newId = parseInt(id) + 1
@@ -54,7 +55,6 @@ async function Page({ params }: { params: { id: string } }) {
   return (
     <div className="w-full max-w-7xl mx-auto my-5 relative overflow-hidden cursor-[inherit]">
       <Card className="bg-transparent">
-{/*  */}
         <CardHeader>
           <Suspense fallback={'...'}>
             <CardTitle className="">
@@ -70,7 +70,7 @@ async function Page({ params }: { params: { id: string } }) {
               </p>
               <p className="flex gap-1 my-1 flex-wrap">
                 {
-                  hero_roles.map( (role: number, idx: number) => (
+                  hero_roles.map( (_: any, idx: number) => (
                     <span className={`basis-16 ${hero_roles[idx] == 0 ?  'text-neutral-600' : hero_roles[idx] == 1 ? 'text-yellow-500' : 'text-green-500'} text-xs py-0.5 bg-current/10 border font-normal border-current/20 text-center capitalize block rounded-[4px]`} key={idx}>
                       {ROLES[idx]}
                     </span>

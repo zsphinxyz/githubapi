@@ -69,7 +69,7 @@ export default function HeroTable({ data }: any) {
             <div className="mb-2 space-x-2">
                 <label htmlFor="attr" className="cursor-[inherit] p-1">
                     <span>Sort by</span>
-                    <select name="attr" id="attr" onChange={(e) => setSort(e.target.value)} className="bg-muted text-muted-foreground rounded-md p-1 cursor-[inherit]">
+                    <select name="attr" id="attr" onChange={(e) => setSort(e.target.value)} className="bg-muted text-muted-foreground rounded-md p-1 ml-1 cursor-[inherit]">
                         <option value="id">Id</option>
                         {/* <option value="attr">Attributes</option> */}
                         <option value="name">Name</option>
@@ -78,7 +78,7 @@ export default function HeroTable({ data }: any) {
 
                 <label htmlFor="attr" className="cursor-[inherit] p-1">
                     <span>Attribute</span>
-                    <select name="attr" id="attr" onChange={(e) => setFilter(parseInt(e.target.value))} className="bg-muted text-muted-foreground rounded-md p-1">
+                    <select name="attr" id="attr" onChange={(e) => setFilter(parseInt(e.target.value))} className="bg-muted text-muted-foreground rounded-md p-1 ml-1 cursor-[inherit]">
                         <option value={4}>All</option>
                         <option value={0}>Strength</option>
                         <option value={1}>Agility</option>

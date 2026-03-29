@@ -1,11 +1,5 @@
 import HeroTable from "./heroTable";
  
-async function getData() {
-    // const data = await fetch('https://api.opendota.com/api/heroStats');
-    
-    // https://www.dota2.com/datafeed/herolist?language=english
-}
-
 export default async function Dota() {
     const res = await fetch('https://www.dota2.com/datafeed/herolist?language=english', {cache: "force-cache"})
     const data = (await res.json()).result.data.heroes;
