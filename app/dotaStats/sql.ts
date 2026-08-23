@@ -2,7 +2,12 @@ export const get_matches_by_league = encodeURI(`
 -- TI 2025
 SELECT leagueid, name 
 FROM leagues 
-WHERE name ILIKE '%International 2025%';
+WHERE TRUE AND (
+  name ILIKE '%International%' OR
+  name ILIKE '%DreamLeague%' OR
+  name ILIKE '%Blast%'
+)
+ORDER BY leagueid DESC;
 `);
 
 export const get_players_stats = (leagueId: string) => encodeURI(`

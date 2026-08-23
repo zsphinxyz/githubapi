@@ -1,4 +1,4 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TMatchDuration } from '../dota2Types';
 
 
@@ -23,6 +23,7 @@ export default function DurationChart({ data }: { data: TMatchDuration[] }) {
         width={500}
         height={300}
         data={data}
+        stackOffset='silhouette'
         margin={{
           top: 5,
           right: 30,

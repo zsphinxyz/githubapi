@@ -14,7 +14,7 @@ import DurationChart from "./components/durationChart";
 export default function page() {
   //background-image: url(&quot;https://cdn.steamstatic.com/apps/dota2/images/dota_react/backgrounds/greyfade.jpg&quot;);
   // 18324 TI2025
-  const [leagueId, setLeagueId] = useState("18324");
+  const [leagueId, setLeagueId] = useState(process.env.DOTA_LEAGUE_ID ?? "19719");
 
   const { data: leagues, isSuccess: isLeagueSuccess } = useQuery({
     queryKey: ["leagues"],
@@ -91,17 +91,21 @@ export default function page() {
           {
             isMatchesDuration &&
             <div className="absolute bottom-10 left-[80px] bg-slate-900/30 text-sm p-2 rounded-md">
-              <p className="">
+              <p>
                 <span className="inline-block min-w-28 text-white font-bold">Total Matches</span>
-                <span className="">: {matchesDuration.length}</span>
+                <span>: {matchesDuration.length}</span>
               </p>
-              <p className="">
+              <p>
+                <span className="inline-block min-w-28 text-white font-bold">Avg Duration</span>
+                <span>: {(matchesDuration.reduce((accu, current) => accu + Number(current.duration_minutes), 0)/matchesDuration.length).toFixed(2)} min</span>
+              </p>
+              <p>
                 <span className="inline-block min-w-28 text-green-500 font-bold">■ Radiant Wins</span>
                 <span>: {matchesDuration.filter( i => i.radiant_win).length} {" "} 
                   ({((100 * matchesDuration.filter( i => i.radiant_win).length) / matchesDuration.length).toFixed(2) }%)
                 </span>
               </p>
-              <p className="">
+              <p>
                 <span className="inline-block min-w-28 text-red-400 font-bold">■ Dire Wins</span>
                 <span>: {matchesDuration.filter( i => !i.radiant_win).length} {" "}
                   ({((100 * matchesDuration.filter( i => !i.radiant_win).length) / matchesDuration.length).toFixed(2) }%)
